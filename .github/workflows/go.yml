@@ -27,7 +27,7 @@ jobs:
       id: artifact-upload
       uses: actions/upload-artifact@v4.3.0
       with:
-        path: '.'
+        path: './golang-kata'
         if-no-files-found: error
         retention-days: 1
         overwrite: true
