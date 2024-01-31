@@ -1,13 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
-func kataSolution() string {
+func kataSolution(input string) string {
 	// Write your code here
-	return ""
+	return input
 }
 
 func main() {
+	// Read the input from standard input
+	var input string
+	_, err := fmt.Scanln(&input)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// Print the solution to standard output
-	fmt.Print(kataSolution())
+	_, err = fmt.Print(kataSolution(input))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
