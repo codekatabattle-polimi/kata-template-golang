@@ -39,6 +39,7 @@ jobs:
 
   upload:
     needs: build
+    if: ${{ vars.BATTLE_ID != '' }}
     runs-on: ubuntu-latest
     steps:
     - name: Submit build artifact to CKB
