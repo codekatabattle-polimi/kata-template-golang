@@ -55,7 +55,5 @@ jobs:
       if: ${{ env.GITHUB_PAT != '' }}
       with:
         url: ${{ vars.API_BASE_URL }}/battles/${{ vars.BATTLE_ID }}/submit
-        # JSON string of data to pass into request
         data: "{\"artifactUrl\": \"${{ needs.build.outputs.artifact-url }}\"}"
-        # JSON string of headers to pass into request
         headers: "{\"Authorization\": \"Bearer ${{ secrets.GITHUB_PAT }}\"}"
