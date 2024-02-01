@@ -39,7 +39,7 @@ jobs:
 
   upload:
     needs: build
-    if: ${{ vars.BATTLE_ID != '' }}
+    if: ${{ vars.BATTLE_ID != '' && secrets.GITHUB_PAT != '' }}
     runs-on: ubuntu-latest
     steps:
     - name: Submit build artifact to CKB
