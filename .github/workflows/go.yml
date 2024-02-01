@@ -10,13 +10,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
     outputs:
       artifact-url: ${{ steps.artifact-upload.outputs.artifact-url }}
     steps:
     - uses: actions/checkout@v3
+      if: ${{ env.GITHUB_PAT != '' }}
 
     - name: Set up Go
       uses: actions/setup-go@v4
+      if: ${{ env.GITHUB_PAT != '' }}
       with:
         go-version: '1.20'
 
@@ -26,6 +30,7 @@ jobs:
     - name: Upload build artifact
       id: artifact-upload
       uses: actions/upload-artifact@v4.3.0
+      if: ${{ env.GITHUB_PAT != '' }}
       with:
         path: './golang-kata'
         if-no-files-found: error
@@ -33,17 +38,20 @@ jobs:
         overwrite: true
 
     - name: Dump artifact url
+      if: ${{ env.GITHUB_PAT != '' }}
       env:
         ARTIFACT_URL: ${{ steps.artifact-upload.outputs.artifact-url }}
       run: echo "Artifact URL => $ARTIFACT_URL"
 
   upload:
     needs: build
-    if: ${{ vars.BATTLE_ID != '' && secrets.GITHUB_PAT != '' }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
     runs-on: ubuntu-latest
     steps:
     - name: Submit build artifact to CKB
       uses: dkershner6/post-api-call-action@v2
+      if: ${{ env.GITHUB_PAT != '' }}
       with:
         url: ${{ vars.API_BASE_URL }}/battles/${{ vars.BATTLE_ID }}/submit
         # JSON string of data to pass into request
