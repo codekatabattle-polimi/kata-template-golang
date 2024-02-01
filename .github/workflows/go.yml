@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
     outputs:
@@ -48,7 +48,7 @@ jobs:
     needs: build
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - name: Submit build artifact to CKB
       uses: dkershner6/post-api-call-action@v2
